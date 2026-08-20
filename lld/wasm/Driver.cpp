@@ -1069,7 +1069,8 @@ static void processStubLibrariesPreLTO() {
     auto *sym = symtab->find(name);
     if (sym)
       return sym->isUndefined();
-    return libcallSymbols.contains(name);
+    return libcallSymbols.contains(name) ||
+           name.starts_with("__cxa_find_matching_catch_");
   };
 
   auto handleDeps = [&](const StubFile *stub_file, ArrayRef<StringRef> deps) {
